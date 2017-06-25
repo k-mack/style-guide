@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<meta name="author" content="Peter Ledbrook, Chris Beams, Schalk Cronjé, Ken Kousen">
+<title>Style Guide for Gradle Guide Authors</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="./coderay-asciidoctor.css">
+</head>
+<body class="article toc2 toc-right">
+<div id="header"><div style="padding-top: 10px;"><a href="https://guides.gradle.org"><img src="http://guides.gradle.org/gradle-guides.svg" alt=""></a></div><h1>Style Guide for Gradle Guide Authors</h1>
+<div class="details">
+<span id="author" class="author">Peter Ledbrook, Chris Beams, Schalk Cronjé, Ken Kousen</span><br>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#getting_started_guides">Getting Started Guides</a>
+<ul class="sectlevel2">
+<li><a href="#focus_on_a_single_task">Focus on a single task</a></li>
+<li><a href="#create_a_working_build">Create a working build</a></li>
+<li><a href="#use_a_set_grammar_for_the_title">Use a set grammar for the title</a></li>
+<li><a href="#use_standard_sections">Use standard sections</a></li>
+<li><a href="#structure_as_a_sequence_of_steps_to_complete">Structure as a sequence of steps to complete</a></li>
+<li><a href="#keep_it_short">Keep it short</a></li>
+<li><a href="#demonstrate_that_the_guide_has_been_successfully_completed">Demonstrate that the guide has been successfully completed</a></li>
+<li><a href="#avoid_unnecessary_prior_knowledge">Avoid unnecessary prior knowledge</a></li>
+<li><a href="#avoid_instructions_or_commands_that_aren_t_strictly_necessary">Avoid instructions or commands that aren&#8217;t strictly necessary</a></li>
+<li><a href="#call_out_to_places_with_more_information">Call out to places with more information</a></li>
+<li><a href="#address_application_developers_and_automation_engineers_new_to_the_topic_not_necessarily_new_to_gradle">Address application developers and automation engineers new to the topic, not necessarily new to Gradle</a></li>
+<li><a href="#prefer_the_indefinite_article_for_prerequisites">Prefer the indefinite article for prerequisites</a></li>
+<li><a href="#include_installation_links_for_software_prerequisites">Include installation links for software prerequisites</a></li>
+<li><a href="#never_underestimate_the_time_required_to_complete_the_guide">Never underestimate the time required to complete the guide</a></li>
+<li><a href="#provide_links_to_relevant_documentation_in_next_steps">Provide links to relevant documentation in Next Steps</a></li>
+<li><a href="#add_comments_for_desirable_next_steps_that_don_t_have_suitable_material">Add comments for desirable next steps that don&#8217;t have suitable material</a></li>
+</ul>
+</li>
+<li><a href="#tutorials">Tutorials</a>
+<ul class="sectlevel2">
+<li><a href="#use_an_appropriate_capability_oriented_title">Use an appropriate capability-oriented title</a></li>
+<li><a href="#use_a_single_worked_example">Use a single worked example</a></li>
+</ul>
+</li>
+<li><a href="#topical_guides">Topical guides</a>
+<ul class="sectlevel2">
+<li><a href="#use_a_title_with_a_readable_form_of_on_topic">Use a title with a readable form of "On &lt;topic&gt;"</a></li>
+</ul>
+</li>
+<li><a href="#structural_elements">Structural elements</a>
+<ul class="sectlevel2">
+<li><a href="#use_the_imperative_for_headings_of_instructional_sections">Use the imperative for headings of instructional sections</a></li>
+</ul>
+</li>
+<li><a href="#general_content">General content</a>
+<ul class="sectlevel2">
+<li><a href="#write_in_us_english">Write in US English</a></li>
+<li><a href="#avoid_idioms_colloquialisms_or_other_cultural_references">Avoid idioms, colloquialisms or other cultural references</a></li>
+<li><a href="#prefer_you_over_we_where_appropriate">Prefer 'you' over 'we' where appropriate</a></li>
+<li><a href="#use_they_for_gender_neutral_3rd_person_singular_pronoun">Use 'they' for gender-neutral 3rd person singular pronoun</a></li>
+<li><a href="#refer_to_the_gradle_user_manual_and_gradle_language_reference">Refer to the Gradle User Manual and Gradle Language Reference</a></li>
+<li><a href="#favor_build_script_over_build_file">Favor 'build script' over 'build file'</a></li>
+<li><a href="#use_consistent_terminology_across_prose_section_headings_and_document_titles">Use consistent terminology across prose, section headings and document titles</a></li>
+</ul>
+</li>
+<li><a href="#formatting_and_links">Formatting and links</a>
+<ul class="sectlevel2">
+<li><a href="#use_permalinks_to_external_content">Use permalinks to external content</a></li>
+<li><a href="#use_asciidoctor_attributes_for_commonly_referenced_base_urls">Use Asciidoctor attributes for commonly referenced base URLs</a></li>
+<li><a href="#generate_anchor_links_in_the_guide_that_don_t_have_a_leading_underscore">Generate anchor links in the guide that don&#8217;t have a leading underscore</a></li>
+<li><a href="#use_monospace_for_code_like_things">Use monospace for code-like things</a></li>
+<li><a href="#use_ascii_quotes_rather_than_smart_quotes">Use ASCII quotes rather than smart quotes</a></li>
+<li><a href="#favor_putting_admonitions_between_paragraphs">Favor putting admonitions between paragraphs</a></li>
+</ul>
+</li>
+<li><a href="#commands_and_code_listings">Commands and code listings</a>
+<ul class="sectlevel2">
+<li><a href="#use_command_line_snippets_for_reader_executed_commands">Use command line snippets for reader-executed commands</a></li>
+<li><a href="#include_the_appropriate_file_paths_in_the_titles_of_code_listings">Include the appropriate file paths in the titles of code listings</a></li>
+<li><a href="#use_the_appropriate_language_setting_for_code_listings">Use the appropriate language setting for code listings</a></li>
+<li><a href="#favor_single_quotes_for_plain_strings_in_build_script_listings">Favor single quotes for plain strings in build script listings</a></li>
+<li><a href="#lowercase_plugin_in_references">Lowercase plugin in references.</a></li>
+</ul>
+</li>
+<li><a href="#process">Process</a>
+<ul class="sectlevel2">
+<li><a href="#include_github_issue_references_into_commit_messages">Include GitHub issue references into commit messages</a></li>
+<li><a href="#use_proper_git_author_metadata">Use proper git author metadata</a></li>
+<li><a href="#avoid_putting_a_code_settings_gradle_code_file_in_the_guide_project">Avoid putting a <code>settings.gradle</code> file in the guide project</a></li>
+</ul>
+</li>
+<li><a href="#use_of_specific_words">Use of specific words</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Gradle Guides form a potentially large collection of learning material written by a variety of authors. From the perspective of the reader, though, they are all of one piece. Once they&#8217;ve read one guide, the next one should be familiar and hence easy to digest. This style guide is designed to satisfy that goal by helping authors keep their writing consistent with other guides.</p>
+</div>
+<div class="paragraph">
+<p>Each guide falls into one of the following three categories:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Getting Started Guides</strong> – these are short (10-15 minute) task-focused guides that take the reader from zero to "hello world" with any given build automation task. You can think of these guides as being designed to rank well for Google searches like "How to publish to Maven Central"—because indeed there would be a Gradle Guide with that exact title or something quite similar. See the <a href="https://guides.gradle.org/gs-building-jvm-libraries/">Getting Started Building JVM Libraries</a> guide for an example.</p>
+</li>
+<li>
+<p><strong>Topical Guides</strong> – These guides cover a given, usually cross-cutting topic in Gradle or build automation, and provide the reader with a "lay of the land" of that given topic. For example, see the <a href="https://github.com/gradle-guides/performance">Optimizing Gradle Performance</a> guide. You can see as you read through the guide that it is not narrative- or use-case driven; rather it provides a paragraph or two of information about each major topic we (the Gradle Team) think that Gradle users should have in mind when they&#8217;re considering the broader topic of build performance optimization.</p>
+</li>
+<li>
+<p><strong>Tutorials</strong> – These are longer-form guides that revolve around implementing a <em>real world</em> build automation solution. For example, implementing a non-trivial plugin from end-to-end, making important design and implementation decisions all along the way.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You will find guidelines in this document that are specific to each guide type as well as a general set applicable to all guide types.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getting_started_guides"><a class="anchor" href="#getting_started_guides"></a>Getting Started Guides</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following guidelines explain the structure and required attributes of a Getting Started Guide.</p>
+</div>
+<div class="sect2">
+<h3 id="focus_on_a_single_task"><a class="anchor" href="#focus_on_a_single_task"></a>Focus on a single task</h3>
+<div class="paragraph">
+<p>Getting Started Guides take the reader through the minimum of steps—the equivalent of a hello-world example—required to complete a specific task. This is partially a value judgement, but ask yourself whether you can break down the proposed task into several tasks that still have value to the user on their own.</p>
+</div>
+<div class="paragraph">
+<p>For example, should a guide include both building and publishing a JVM library? We think not because building the JAR has value in itself: the library can be used directly. Publishing is a common requirement for JVM library projects, but it&#8217;s not an <em>absolute</em> requirement. It&#8217;s an additional task that readers will often want to complete.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="create_a_working_build"><a class="anchor" href="#create_a_working_build"></a>Create a working build</h3>
+<div class="paragraph">
+<p>The user should have a working build after following the steps of a Getting Started Guide.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use_a_set_grammar_for_the_title"><a class="anchor" href="#use_a_set_grammar_for_the_title"></a>Use a set grammar for the title</h3>
+<div class="paragraph">
+<p>The title of the guide should work when prefixed with "Getting Started" and start with a present participle where possible. The title should also ensure that it represents a capability the reader will learn rather than a task that they perform.</p>
+</div>
+<div class="paragraph">
+<p>For example, favor "Building JVM libraries" over "Building <em>a</em> JVM library", since the capability is "I can build JVM libraries."</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use_standard_sections"><a class="anchor" href="#use_standard_sections"></a>Use standard sections</h3>
+<div class="paragraph">
+<p>A Getting Started Guide has a fixed outline:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>What you&#8217;ll build (or What you&#8217;ll create)</p>
+</li>
+<li>
+<p>What you&#8217;ll need</p>
+</li>
+<li>
+<p>&lt;The guide&#8217;s specific steps&gt;</p>
+</li>
+<li>
+<p>Summary</p>
+</li>
+<li>
+<p>Next steps</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>External contributors will find these already in the skeleton project that they start with.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="structure_as_a_sequence_of_steps_to_complete"><a class="anchor" href="#structure_as_a_sequence_of_steps_to_complete"></a>Structure as a sequence of steps to complete</h3>
+<div class="paragraph">
+<p>Provide precise steps for the reader to follow, with commands and code that can be copied, pasted and executed. Each discrete step should have its own heading that takes the form of an imperative.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="keep_it_short"><a class="anchor" href="#keep_it_short"></a>Keep it short</h3>
+<div class="paragraph">
+<p>A reader should be able to complete a Getting Started Guide in 10-30 minues, including copying or writing the code and executing the build.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="demonstrate_that_the_guide_has_been_successfully_completed"><a class="anchor" href="#demonstrate_that_the_guide_has_been_successfully_completed"></a>Demonstrate that the guide has been successfully completed</h3>
+<div class="paragraph">
+<p>How does a user know that they followed the instructions correctly? Did they build something that works? A Getting Started Guide should always attempt to include a final step that <em>shows</em> the user successful completion.</p>
+</div>
+<div class="paragraph">
+<p>As an example, <a href="https://guides.gradle.org/gs-building-jvm-libraries/#consume_the_library_jar">Getting Started Building JVM Libraries</a> has the user creating a class with a <code>main()</code> method that uses the library they just built. The user is then shown how to compile and run the class with the library&#8217;s JAR on the classpath.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="avoid_unnecessary_prior_knowledge"><a class="anchor" href="#avoid_unnecessary_prior_knowledge"></a>Avoid unnecessary prior knowledge</h3>
+<div class="paragraph">
+<p>Every Getting Started Guide is a worked example. One difficulty is thinking of an example that isn&#8217;t tied to a specific domain, such as file hashing, security, web applications, etc. If you were to use such an example, you would then have to work out how much extra information you should provide in case the user isn&#8217;t familiar with the requirements and terminology of that domain.</p>
+</div>
+<div class="paragraph">
+<p>The example doesn&#8217;t have to be useful in itself, so avoid one that requires unnecessary knowledge on the part of the user. On the other hand, if the task is specific to a domain, then assuming knowledge of that domain is expected. For example, if a guide&#8217;s task relates to Docker, then use a Docker example and assume knowledge of what Docker is and the tools around it.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="avoid_instructions_or_commands_that_aren_t_strictly_necessary"><a class="anchor" href="#avoid_instructions_or_commands_that_aren_t_strictly_necessary"></a>Avoid instructions or commands that aren&#8217;t strictly necessary</h3>
+<div class="paragraph">
+<p>Anything extra beyond the bare minimum acts as a potential distraction and digression from the main focus of the guide.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="call_out_to_places_with_more_information"><a class="anchor" href="#call_out_to_places_with_more_information"></a>Call out to places with more information</h3>
+<div class="paragraph">
+<p>Getting Started Guides are lean and shouldn&#8217;t introduce discussion points if possible. However, they <em>should</em> link to reliable external material—such as the Gradle User Manual—that covers important and relevant discussion points for the given task.</p>
+</div>
+<div class="paragraph">
+<p>As an example, <a href="https://guides.gradle.org/gs-building-jvm-libraries/#assemble_the_library_jar">Getting Started Building JVM Libraries</a> uses the standard Java project structure but links to the user manual to explain what that structure is and how to configure it, since that&#8217;s relevant information.</p>
+</div>
+<div class="paragraph">
+<p>Such links can also go into the Next Steps section for relevant follow-on tasks. For example, users will often want to publish a JVM library after building it, so the above guide links to another guide covering that task.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="address_application_developers_and_automation_engineers_new_to_the_topic_not_necessarily_new_to_gradle"><a class="anchor" href="#address_application_developers_and_automation_engineers_new_to_the_topic_not_necessarily_new_to_gradle"></a>Address application developers and automation engineers new to the topic, not necessarily new to Gradle</h3>
+<div class="paragraph">
+<p>Getting Started Guides should not reproduce the same basic information on using the Gradle build tool. Assume that readers of your guide have at least read the more basic ones on writing custom tasks and building JVM libraries.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="prefer_the_indefinite_article_for_prerequisites"><a class="anchor" href="#prefer_the_indefinite_article_for_prerequisites"></a>Prefer the indefinite article for prerequisites</h3>
+<div class="paragraph">
+<p>This is with respect to software that the reader needs to have installed before going through the guide. Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A Java Development Kit, version X or better</p>
+</li>
+<li>
+<p>A Gradle distribution, version X or better</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="include_installation_links_for_software_prerequisites"><a class="anchor" href="#include_installation_links_for_software_prerequisites"></a>Include installation links for software prerequisites</h3>
+<div class="paragraph">
+<p>It&#8217;s all well and good telling a user what software to install, but it makes their lives much easier if those instructions also include links on how to do so.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="never_underestimate_the_time_required_to_complete_the_guide"><a class="anchor" href="#never_underestimate_the_time_required_to_complete_the_guide"></a>Never underestimate the time required to complete the guide</h3>
+<div class="paragraph">
+<p>Imagine you spend double the time completing a guide than is stated in the prerequisites. How would you feel? We want to avoid the potential for any negative reactions or feelings.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="provide_links_to_relevant_documentation_in_next_steps"><a class="anchor" href="#provide_links_to_relevant_documentation_in_next_steps"></a>Provide links to relevant documentation in Next Steps</h3>
+<div class="paragraph">
+<p>In many cases, a next step should link to another guide. In the cases where no suitable guide exists, link to the appropriate chapter or section of the User Manual. Otherwise we leave the reader stranded.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add_comments_for_desirable_next_steps_that_don_t_have_suitable_material"><a class="anchor" href="#add_comments_for_desirable_next_steps_that_don_t_have_suitable_material"></a>Add comments for desirable next steps that don&#8217;t have suitable material</h3>
+<div class="paragraph">
+<p>Following on from the previous guideline, we want to track and identify any content or guides that we think should exist for a Next Step. To do this, add an Asciidoc comment that links to the GitHub issue for that missing content:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>////
+// - link to Working with a multi-project build - gradle-guides/gradle-guides.github.io#10
+////</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tutorials"><a class="anchor" href="#tutorials"></a>Tutorials</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section contains guidelines that are specific to long-form tutorials, as opposed to Getting Started Guides.</p>
+</div>
+<div class="sect2">
+<h3 id="use_an_appropriate_capability_oriented_title"><a class="anchor" href="#use_an_appropriate_capability_oriented_title"></a>Use an appropriate capability-oriented title</h3>
+<div class="paragraph">
+<p>As with Getting Started Guides, tutorial titles should take the form of a present participle describing a capability, such as "building JVM libraries" or "building for and deploying to Docker".</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use_a_single_worked_example"><a class="anchor" href="#use_a_single_worked_example"></a>Use a single worked example</h3>
+<div class="paragraph">
+<p>A tutorial should take a user through the same example as it evolves, rather than switching examples mid-guide. This is to avoid unnecessary context switching and disruption to the user. It means that you need to give due consideration as to what example you should used based on all the things you want to cover.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="topical_guides"><a class="anchor" href="#topical_guides"></a>Topical guides</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A topical guide has very few special requirements, which we cover here.</p>
+</div>
+<div class="sect2">
+<h3 id="use_a_title_with_a_readable_form_of_on_topic"><a class="anchor" href="#use_a_title_with_a_readable_form_of_on_topic"></a>Use a title with a readable form of "On &lt;topic&gt;"</h3>
+<div class="paragraph">
+<p>For example, "<em>On</em> Performance" or "<em>On</em> Migrating from Maven to Gradle".</p>
+</div>
+<div class="paragraph">
+<p>Don&#8217;t use the <em>On</em> when creating the repository, just allow for the title to be readable in that way.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="structural_elements"><a class="anchor" href="#structural_elements"></a>Structural elements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following guidelines relate to the structural elements of the guide, such as the headings.</p>
+</div>
+<div class="sect2">
+<h3 id="use_the_imperative_for_headings_of_instructional_sections"><a class="anchor" href="#use_the_imperative_for_headings_of_instructional_sections"></a>Use the imperative for headings of instructional sections</h3>
+<div class="paragraph">
+<p>If a guide section represents a step or set of steps that the reader should follow, use the imperative. Since you are telling the reader what to do, the imperative mood is appropriate.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="general_content"><a class="anchor" href="#general_content"></a>General content</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section contains miscellaneous guidelines for the content of the guides that are independent of any specific guide section.</p>
+</div>
+<div class="sect2">
+<h3 id="write_in_us_english"><a class="anchor" href="#write_in_us_english"></a>Write in US English</h3>
+<div class="paragraph">
+<p>US English is simply more common in technical writing and more users are familiar with it (probably).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="avoid_idioms_colloquialisms_or_other_cultural_references"><a class="anchor" href="#avoid_idioms_colloquialisms_or_other_cultural_references"></a>Avoid idioms, colloquialisms or other cultural references</h3>
+<div class="paragraph">
+<p>Gradle has an international audience, many of whom don&#8217;t speak English as their first language. Although idioms and the like can inject color into a guide, they will often result in simple incomprehension due to the reader&#8217;s lack of familiarity with a word or expression. Try to keep things clear and culturally-neutral.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="prefer_you_over_we_where_appropriate"><a class="anchor" href="#prefer_you_over_we_where_appropriate"></a>Prefer 'you' over 'we' where appropriate</h3>
+<div class="paragraph">
+<p>When walking a reader through something you want them to do, it&#8217;s perfectly fine to use either the 'you' or 'we' forms. However, it&#8217;s important to be consistent in order to avoid dissonance for the reader.</p>
+</div>
+<div class="paragraph">
+<p>With that in mind, use 'you' when referring to actions the reader should do or has already done, or for things that they should have or will have. For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You will create a new project</p>
+</li>
+<li>
+<p>When you ran this task, …</p>
+</li>
+<li>
+<p>You should now have a package you can use in other projects</p>
+</li>
+<li>
+<p>By following these instructions, you will have a complete build for …</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The 'we' form should be limited to speaking from the perspective of the guide author or team, for example "we want to encourage you to experiment with this."</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use_they_for_gender_neutral_3rd_person_singular_pronoun"><a class="anchor" href="#use_they_for_gender_neutral_3rd_person_singular_pronoun"></a>Use 'they' for gender-neutral 3rd person singular pronoun</h3>
+<div class="paragraph">
+<p>You may occasionally refer to a third party, such as a build user or the user of an application, i.e. someone that is neither you nor the reader. When that happens and you want to use a pronoun, prefer 'they', 'them', 'their', etc. This avoids the problem of assigning a gender to that third party with 'he' or 'she'.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="refer_to_the_gradle_user_manual_and_gradle_language_reference"><a class="anchor" href="#refer_to_the_gradle_user_manual_and_gradle_language_reference"></a>Refer to the Gradle User Manual and Gradle Language Reference</h3>
+<div class="paragraph">
+<p>The first is to distinguish the user manual from the Gradle Guides project, while the second is because we want to deprecate the use of the term DSL when talking about that part of the reference documentation. It&#8217;s not obvious to everyone what DSL means in this context.</p>
+</div>
+<div class="paragraph">
+<p>Note that you should only capitalize the complete names, i.e. Gradle User Manual and Gradle Language Reference. You can also refer to them as the <em>user manual</em> and <em>language reference</em> once it&#8217;s clear to the reader that you&#8217;re referring to the Gradle ones.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="favor_build_script_over_build_file"><a class="anchor" href="#favor_build_script_over_build_file"></a>Favor 'build script' over 'build file'</h3>
+<div class="paragraph">
+<p>This is to ensure consistency across guides.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use_consistent_terminology_across_prose_section_headings_and_document_titles"><a class="anchor" href="#use_consistent_terminology_across_prose_section_headings_and_document_titles"></a>Use consistent terminology across prose, section headings and document titles</h3>
+<div class="paragraph">
+<p>It can be confusing to the reader if different terms are used for the same thing. How are they supposed to know if you&#8217;re talking about the same thing or not.</p>
+</div>
+<div class="paragraph">
+<p>As an example, if a section heading talks about "assembling a library JAR", then the prose should not then say "building the project JAR file". Instead, go with "assembling the library JAR".</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="formatting_and_links"><a class="anchor" href="#formatting_and_links"></a>Formatting and links</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A common decision that a writer needs to make is whether to style a particular piece of text and if so, what style to use. This section tackles those decisions as well as those around the usage of hyperlinks.</p>
+</div>
+<div class="sect2">
+<h3 id="use_permalinks_to_external_content"><a class="anchor" href="#use_permalinks_to_external_content"></a>Use permalinks to external content</h3>
+<div class="paragraph">
+<p>Some URLs point to content that changes over time. For example, URLs to the current Gradle User Manual. Prefer permalinks in place of these. Such permalinks are typically tied to a snapshot in time, for example a specific release of Gradle.</p>
+</div>
+<div class="paragraph">
+<p>Following this guideline means that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>linked content won&#8217;t change in a way that adversely affects the integrity of the guide</p>
+</li>
+<li>
+<p>we force a controlled and intentional upgrade of the guide at a time of our choosing</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use_asciidoctor_attributes_for_commonly_referenced_base_urls"><a class="anchor" href="#use_asciidoctor_attributes_for_commonly_referenced_base_urls"></a>Use Asciidoctor attributes for commonly referenced base URLs</h3>
+<div class="paragraph">
+<p>Asciidoctor attributes allow us to parameterize the guides. This is particularly useful for URLs that share a common base URL, such as links into the Gradle User Manual or Language Reference.</p>
+</div>
+<div class="paragraph">
+<p>Using attributes in this way means that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>we only have to change the base URL in one location if it becomes necessary</p>
+</li>
+<li>
+<p>the Asciidoc source is more readable</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Lastly:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the base URL for an attribute should end with a slash - '/'</p>
+</li>
+<li>
+<p>don&#8217;t use attributes for one-off or very infrequently used URLs</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="generate_anchor_links_in_the_guide_that_don_t_have_a_leading_underscore"><a class="anchor" href="#generate_anchor_links_in_the_guide_that_don_t_have_a_leading_underscore"></a>Generate anchor links in the guide that don&#8217;t have a leading underscore</h3>
+<div class="paragraph">
+<p>This is handled automatically by the guides' template build script, but if you&#8217;re not using that for some reason—not recommended!—be sure to set the Asciidoctor <code>idprefix</code> attribute to an empty string in the build.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use_monospace_for_code_like_things"><a class="anchor" href="#use_monospace_for_code_like_things"></a>Use monospace for code-like things</h3>
+<div class="paragraph">
+<p>This includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>any text that comes from source code or configuration data</p>
+</li>
+<li>
+<p>commands and command lines</p>
+</li>
+<li>
+<p>file and directory paths</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use_ascii_quotes_rather_than_smart_quotes"><a class="anchor" href="#use_ascii_quotes_rather_than_smart_quotes"></a>Use ASCII quotes rather than smart quotes</h3>
+<div class="paragraph">
+<p>This ensures the guide can be read on any system and the basic quotes render slightly better on GitHub too.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="favor_putting_admonitions_between_paragraphs"><a class="anchor" href="#favor_putting_admonitions_between_paragraphs"></a>Favor putting admonitions between paragraphs</h3>
+<div class="paragraph">
+<p>Admonitions are great for calling out information, but they also disrupt the flow of the page. You can minimize this effect by putting admonitions between paragraphs of text, as opposed to between a paragraph and a code block for example.</p>
+</div>
+<div class="paragraph">
+<p>It may not be possible to follow this guideline in every case. The admonition should also be as close to other relevant content as possible. When these two guidelines conflict, favor the latter.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="commands_and_code_listings"><a class="anchor" href="#commands_and_code_listings"></a>Commands and code listings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Almost all guides include commands to run and code listings to copy, so the following guidelines are generally applicable.</p>
+</div>
+<div class="sect2">
+<h3 id="use_command_line_snippets_for_reader_executed_commands"><a class="anchor" href="#use_command_line_snippets_for_reader_executed_commands"></a>Use command line snippets for reader-executed commands</h3>
+<div class="paragraph">
+<p>We want to avoid any confusion as to what bits of text need to be copied and pasted into a terminal or command prompt. To that end, use the following syntax for any commands that you want the reader to execute:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ &lt;command line&gt;
+&lt;expected output&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The expected output is optional, but it&#8217;s useful for the reader in determining whether they correctly ran the given command line. Here&#8217;s a simple example of the style we&#8217;re want:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ gradle hello
+:hello
+Hello World!</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may also include multiple command lines, but they must all be prefixed with <code>$</code> and you should only include expected output for the last command line. Ideally, you should break the commands into separate blocks if you want to add expected output to any of them.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="include_the_appropriate_file_paths_in_the_titles_of_code_listings"><a class="anchor" href="#include_the_appropriate_file_paths_in_the_titles_of_code_listings"></a>Include the appropriate file paths in the titles of code listings</h3>
+<div class="paragraph">
+<p>Code listings typically represent the content of a file. In such cases, make the file path at least part of the listing caption, if not the whole of it. The path should not be included in the prose around the code listing. This makes the prose easier to read and the file path stands out in the listing caption.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use_the_appropriate_language_setting_for_code_listings"><a class="anchor" href="#use_the_appropriate_language_setting_for_code_listings"></a>Use the appropriate language setting for code listings</h3>
+<div class="paragraph">
+<p>Asciidoctor allows you to specify the language used in a code listing, so use it! Alternatively, set the default language as a document attribute and only set the language on code listings that differ from that.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="favor_single_quotes_for_plain_strings_in_build_script_listings"><a class="anchor" href="#favor_single_quotes_for_plain_strings_in_build_script_listings"></a>Favor single quotes for plain strings in build script listings</h3>
+<div class="paragraph">
+<p>This is mostly to ensure consistency across guides, but single quotes are also a little less noisy than double quotes. Only use double quotes if you want to include an embedded expression in the string.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="lowercase_plugin_in_references"><a class="anchor" href="#lowercase_plugin_in_references"></a>Lowercase plugin in references.</h3>
+<div class="paragraph">
+<p>For consistency use capitalization in the name of a plugin, but lowercase the <code>plugin</code> at the end. For instance <strong>Groovy VFS plugin</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="process"><a class="anchor" href="#process"></a>Process</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These guidelines are related to the processes around writing and publishing the guides.</p>
+</div>
+<div class="sect2">
+<h3 id="include_github_issue_references_into_commit_messages"><a class="anchor" href="#include_github_issue_references_into_commit_messages"></a>Include GitHub issue references into commit messages</h3>
+<div class="paragraph">
+<p>This ties the commit to a particular issue within the GitHub UI, making it easy to navigate between the two. Every commit should reference at least the issue covering the guide that you&#8217;re working on.</p>
+</div>
+<div class="paragraph">
+<p>Use the text <code>Issue: &lt;org&gt;/&lt;repo&gt;#&lt;issueNumber&gt;</code> within the commit message, for example "Issue: gradle-guides/gradle-guides.github.io#12".</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use_proper_git_author_metadata"><a class="anchor" href="#use_proper_git_author_metadata"></a>Use proper git author metadata</h3>
+<div class="paragraph">
+<p>Make sure that git&#8217;s <code>user.name</code> property is your full, real name. The <code>user.email</code> property should be a valid email address for you.</p>
+</div>
+<div class="paragraph">
+<p>For those with <code>gradle.com</code> addresses, make sure that <code>user.email</code> references that email address.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="avoid_putting_a_code_settings_gradle_code_file_in_the_guide_project"><a class="anchor" href="#avoid_putting_a_code_settings_gradle_code_file_in_the_guide_project"></a>Avoid putting a <code>settings.gradle</code> file in the guide project</h3>
+<div class="paragraph">
+<p>The file makes it harder to understand the project at a glance without providing any real benefit.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use_of_specific_words"><a class="anchor" href="#use_of_specific_words"></a>Use of specific words</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Prefer <code>reuse</code> over <code>re-use</code>.</p>
+</li>
+<li>
+<p>Prefer <code>sub-project</code> over <code>subproject</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-06-25 21:50:35 UTC
+</div>
+</div>
+</body>
+</html>
