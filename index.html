@@ -66,11 +66,6 @@
 <li><a href="#use_a_single_worked_example">Use a single worked example</a></li>
 </ul>
 </li>
-<li><a href="#topical_guides">Topical guides</a>
-<ul class="sectlevel2">
-<li><a href="#use_a_title_with_a_readable_form_of_on_topic">Use a title with a readable form of "On &lt;topic&gt;"</a></li>
-</ul>
-</li>
 <li><a href="#structural_elements">Structural elements</a>
 <ul class="sectlevel2">
 <li><a href="#use_the_imperative_for_headings_of_instructional_sections">Use the imperative for headings of instructional sections</a></li>
@@ -104,6 +99,13 @@
 <li><a href="#use_the_appropriate_language_setting_for_code_listings">Use the appropriate language setting for code listings</a></li>
 <li><a href="#favor_single_quotes_for_plain_strings_in_build_script_listings">Favor single quotes for plain strings in build script listings</a></li>
 <li><a href="#lowercase_plugin_in_references">Lowercase plugin in references.</a></li>
+<li><a href="#do_not_use_spaces_around_gradle_task_parameters">Do not use spaces around Gradle task parameters</a></li>
+</ul>
+</li>
+<li><a href="#make_guides_testable">Make guides testable</a>
+<ul class="sectlevel2">
+<li><a href="#test_method_1_include_a_test_suite">Test method 1: Include a test suite</a></li>
+<li><a href="#test_method_2_include_a_full_project_for_native_guides">Test method 2: Include a full project for native guides</a></li>
 </ul>
 </li>
 <li><a href="#process">Process</a>
@@ -295,11 +297,11 @@
 <div class="paragraph">
 <p>Following on from the previous guideline, we want to track and identify any content or guides that we think should exist for a Next Step. To do this, add an Asciidoc comment that links to the GitHub issue for that missing content:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>////
+<pre class="CodeRay highlight"><code>////
 // - link to Working with a multi-project build - gradle-guides/gradle-guides.github.io#10
-////</pre>
+////</code></pre>
 </div>
 </div>
 </div>
@@ -321,23 +323,6 @@
 <h3 id="use_a_single_worked_example"><a class="anchor" href="#use_a_single_worked_example"></a>Use a single worked example</h3>
 <div class="paragraph">
 <p>A tutorial should take a user through the same example as it evolves, rather than switching examples mid-guide. This is to avoid unnecessary context switching and disruption to the user. It means that you need to give due consideration as to what example you should used based on all the things you want to cover.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="topical_guides"><a class="anchor" href="#topical_guides"></a>Topical guides</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>A topical guide has very few special requirements, which we cover here.</p>
-</div>
-<div class="sect2">
-<h3 id="use_a_title_with_a_readable_form_of_on_topic"><a class="anchor" href="#use_a_title_with_a_readable_form_of_on_topic"></a>Use a title with a readable form of "On &lt;topic&gt;"</h3>
-<div class="paragraph">
-<p>For example, "<em>On</em> Performance" or "<em>On</em> Migrating from Maven to Gradle".</p>
-</div>
-<div class="paragraph">
-<p>Don&#8217;t use the <em>On</em> when creating the repository, just allow for the title to be readable in that way.</p>
 </div>
 </div>
 </div>
@@ -536,15 +521,12 @@
 <div class="sect1">
 <h2 id="commands_and_code_listings"><a class="anchor" href="#commands_and_code_listings"></a>Commands and code listings</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Almost all guides include commands to run and code listings to copy, so the following guidelines are generally applicable.</p>
-</div>
 <div class="sect2">
 <h3 id="use_command_line_snippets_for_reader_executed_commands"><a class="anchor" href="#use_command_line_snippets_for_reader_executed_commands"></a>Use command line snippets for reader-executed commands</h3>
 <div class="paragraph">
 <p>We want to avoid any confusion as to what bits of text need to be copied and pasted into a terminal or command prompt. To that end, use the following syntax for any commands that you want the reader to execute:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock terminal">
 <div class="content">
 <pre>$ &lt;command line&gt;
 &lt;expected output&gt;</pre>
@@ -553,7 +535,7 @@
 <div class="paragraph">
 <p>The expected output is optional, but it&#8217;s useful for the reader in determining whether they correctly ran the given command line. Here&#8217;s a simple example of the style we&#8217;re want:</p>
 </div>
-<div class="literalblock">
+<div class="listingblock terminal">
 <div class="content">
 <pre>$ gradle hello
 :hello
@@ -562,6 +544,9 @@ Hello World!</pre>
 </div>
 <div class="paragraph">
 <p>You may also include multiple command lines, but they must all be prefixed with <code>$</code> and you should only include expected output for the last command line. Ideally, you should break the commands into separate blocks if you want to add expected output to any of them.</p>
+</div>
+<div class="paragraph">
+<p>Place all console listing in a <code>[listing.terminal]</code> block.</p>
 </div>
 </div>
 <div class="sect2">
@@ -586,6 +571,104 @@ Hello World!</pre>
 <h3 id="lowercase_plugin_in_references"><a class="anchor" href="#lowercase_plugin_in_references"></a>Lowercase plugin in references.</h3>
 <div class="paragraph">
 <p>For consistency use capitalization in the name of a plugin, but lowercase the <code>plugin</code> at the end. For instance <strong>Groovy VFS plugin</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="do_not_use_spaces_around_gradle_task_parameters"><a class="anchor" href="#do_not_use_spaces_around_gradle_task_parameters"></a>Do not use spaces around Gradle task parameters</h3>
+<div class="paragraph">
+<p>To be consistent for the user guide, do not place space around parameter when defining tasks.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">task hello(type : Greeter) { <i class="conum" data-value="1"></i><b>(1)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>No space after the <code>(</code> or before the <code>)</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="make_guides_testable"><a class="anchor" href="#make_guides_testable"></a>Make guides testable</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A testable guide is not a guide that shows readers how to add tests, but is one where the included code snippets and even the console output is validated during the building of the guide. Having guides testable, results in lower maintenance for guide authors, especially when new versions of Gradle come out. Familiarize yourself with Asciidoctor&#8217;s use of <a href="http://asciidoctor.org/docs/user-manual/#include-directive">file include</a> and <a href="http://asciidoctor.org/docs/user-manual/#by-tagged-regions">include tags</a> as they play a key role for including code tested code snippets and console output.</p>
+</div>
+<div class="paragraph">
+<p>There are two specific ways to make a guide testable. As an author you can select one of more of these methods. The exact ones you select will be determined by the context of the guide you are writing.</p>
+</div>
+<div class="paragraph">
+<p>Runner` in the <a href="http://ysb33r.github.io/gradleTest/">GradleRunner plugin documentation</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="test_method_1_include_a_test_suite"><a class="anchor" href="#test_method_1_include_a_test_suite"></a>Test method 1: Include a test suite</h3>
+<div class="paragraph">
+<p>Include a test suite in the project. When the guide has many code snippets. Place the test code in the <code>src/test</code> folder and follow the Gradle conventions for writing tests.</p>
+</div>
+<div class="paragraph">
+<p>For your convenience apply the the <code>org.gradle.guides.test-jvm-code</code> plugin when the code under test is JVM-based. You can use the Spock Framework for the testing, but are not limited to that. Configure the tests in the usual <code>test</code> block.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example of a test environment that a guide author has created as part of validating a guide</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">test {
+    systemProperties <span class="string"><span class="delimiter">'</span><span class="content">HTTPSERVER_PORT</span><span class="delimiter">'</span></span> : <span class="integer">65000</span>
+    systemProperties <span class="string"><span class="delimiter">'</span><span class="content">TEMPLATE_DIR</span><span class="delimiter">'</span></span> : file(<span class="string"><span class="delimiter">'</span><span class="content">src/publicationTest</span><span class="delimiter">'</span></span>).absolutePath
+
+    inputs.dir <span class="string"><span class="delimiter">'</span><span class="content">src/publicationTest</span><span class="delimiter">'</span></span>  <i class="conum" data-value="1"></i><b>(1)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Ensure the test ran when the sources used internally by the test changed.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="test_method_2_include_a_full_project_for_native_guides"><a class="anchor" href="#test_method_2_include_a_full_project_for_native_guides"></a>Test method 2: Include a full project for native guides</h3>
+<div class="paragraph">
+<p>This is currently the best approach for guides about native projects. As the native support in Gradle is evolving no simplifying patterns about native guides have arisen yet. Even though some of the above steps might work for a native guide author, it is recommend to create a project in a gradle script and then apply it from the main <code>build.gradle</code> file. For convention place the project script in the <code>gradle</code> folder.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example of including a basic C++ project.</p>
+</div>
+<div class="listingblock">
+<div class="title">gradle/cpp.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">apply plugin : <span class="string"><span class="delimiter">'</span><span class="content">cpp</span><span class="delimiter">'</span></span>
+
+model {
+    components {
+        main(NativeExecutableSpec)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Include this script in the main project.</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">apply <span class="key">from</span>: <span class="string"><span class="delimiter">'</span><span class="content">gradle/cpp.gradle</span><span class="delimiter">'</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Having the project script separate, make it easier to include code snippets back into the guide. It also leads to less clutter in the main <code>build.gradle</code> file, which main purpose it to express how the guide will be built.</p>
 </div>
 </div>
 </div>
@@ -642,7 +725,7 @@ Hello World!</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-07-07 08:06:42 UTC
+Last updated 2017-07-30 16:12:08 UTC
 </div>
 </div>
 </body>
